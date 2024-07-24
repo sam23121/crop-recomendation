@@ -40,6 +40,7 @@ importlib_metadata==8.0.0
 iso8601==2.1.0
 Jinja2==3.1.4
 jmespath==1.0.1
+joblib==1.4.2
 jsonpatch==1.33
 jsonpointer==3.0.0
 jsonschema==4.23.0
@@ -127,6 +128,8 @@ rfc3986==2.0.0
 rich==13.7.1
 Routes==2.5.1
 rpds-py==0.19.0
+scikit-learn==1.5.1
+scipy==1.14.0
 shellingham==1.5.4
 simplegeneric==0.8.1
 six==1.16.0
@@ -142,6 +145,7 @@ tenacity==8.5.0
 testresources==2.0.1
 testscenarios==0.5.0
 testtools==2.7.2
+threadpoolctl==3.5.0
 toml==0.10.2
 toolz==0.12.1
 tornado==6.4.1

@@ -1,0 +1,55 @@
+name: Prod Lambda Deployment
+
+
+on:
+  push:
+    branches:
+      - main
+    # paths:
+    #   - 
+    #   - .github/**
+
+env:
+  #ECR repo name
+  ecrreponame: test-crop
+  #Docker tag
+  tag: latest
+  lambda_function_name: test-crop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v1
+
+    - name: Build, tag, and push docker image to Amazon ECR
+      env:
+        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        REPOSITORY: ${{ env.ecrreponame }}
+        IMAGE_TAG: ${{ env.tag }} 
+      run: |
+        cd app/fastapi
+        docker build --build-arg AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID --build-arg AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+        docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+        
+   
+    - name: Update Lambda function code
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        ECR_REPOSITORY: ${{ env.ecrreponame }}
+        IMAGE_TAG: ${{ env.tag }}
+      run: |
+        IMAGE_URI=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+        aws lambda update-function-code --function-name ${{ env.lambda_function_name }} --image-uri $IMAGE_URI

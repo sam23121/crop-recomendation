@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 import os
-import joblib
+# import joblib
 import pickle
 from fastapi import Depends, FastAPI
 from sklearn.linear_model import LogisticRegression
