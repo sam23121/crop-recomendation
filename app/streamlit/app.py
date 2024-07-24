@@ -25,7 +25,7 @@ def call_api():
     }
 
     
-    response = requests.post('http://localhost:8000/prediction', headers=headers, data=json.dumps(payload))
+    response = requests.post('https://y3zh5wguignc2yon6bnxqmhfey0sdumg.lambda-url.us-east-1.on.aws/prediction', headers=headers, data=json.dumps(payload))
     data = response.json()
 
     # Display the result
