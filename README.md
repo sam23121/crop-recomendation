@@ -3,6 +3,8 @@
 ## Project Description
 This project aims to predict the best crop for a given soil type based on various environmental factors. The system receives data from microcontroller sensors, including temperature, humidity, pH value, and moisture content, and uses this information to recommend the most suitable crop.
 
+Test [here](crop-recomendation.streamlit.app/)
+
 ## Project Structure
 The project is organized into the following folders:
 
