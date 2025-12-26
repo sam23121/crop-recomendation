@@ -1,13 +1,7 @@
 from fastapi import FastAPI
-# import pickle
 from mangum import Mangum
-# import uvicorn
 import contextlib
 from data_model import CropGroupsModel, PredictionInput, PredictionOutput
-from fastapi import Depends, FastAPI
-
-app = FastAPI()
-
 
 crop_groups_model = CropGroupsModel()
 
@@ -33,4 +27,4 @@ handler = Mangum(app)
 
 
 # if __name__ == '__main__':
-#     uvicorn.run("main:app", host='0.0.0.0', port=8000, reload=True)
+#     uvicorn.run("app:app", host='0.0.0.0', port=8000, reload=True)
