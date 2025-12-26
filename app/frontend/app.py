@@ -27,6 +27,8 @@ def call_api():
     
     response = requests.post('https://ywhznrkmduweaokwbyt623xerm0civng.lambda-url.us-east-1.on.aws/prediction', headers=headers, data=json.dumps(payload))
     data = response.json()
+    print(data)
+    print(data['category'])
 
     # Display the result
     st.write(f"Result: {data['category']}")
